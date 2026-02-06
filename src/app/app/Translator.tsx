@@ -27,6 +27,9 @@ export default function Translator() {
 
     const controller = new AbortController();
     const timeoutId = setTimeout(() => {
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/933156a5-bfa2-4f2c-b0c6-290a0bb88c70',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Translator.tsx:timeoutCallback',message:'Timeout fired',data:{ignoreResultBefore:ignoreResultRef.current},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H1'})}).catch(()=>{});
+      // #endregion
       ignoreResultRef.current = true;
       controller.abort();
       setError("Request timed out. Try again or use shorter text.");
@@ -34,6 +37,9 @@ export default function Translator() {
     }, REQUEST_TIMEOUT_MS);
 
     try {
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/933156a5-bfa2-4f2c-b0c6-290a0bb88c70',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Translator.tsx:handleTranslate:entry',message:'Translate started',data:{inputLen:inputText.length,formality,creativity},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H2,H4,H5'})}).catch(()=>{});
+      // #endregion
       const response = await fetch("/api/translate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -47,6 +53,9 @@ export default function Translator() {
       });
 
       clearTimeout(timeoutId);
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/933156a5-bfa2-4f2c-b0c6-290a0bb88c70',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Translator.tsx:afterFetch',message:'Response received',data:{ok:response.ok,status:response.status,ignoreResult:ignoreResultRef.current},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H1,H2,H4'})}).catch(()=>{});
+      // #endregion
       if (ignoreResultRef.current) return;
 
       if (!response.ok) {
@@ -55,10 +64,16 @@ export default function Translator() {
       }
 
       const data = await response.json();
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/933156a5-bfa2-4f2c-b0c6-290a0bb88c70',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Translator.tsx:afterJson',message:'Parsed body',data:{hasTranslation:!!data.translation,translationLen:typeof data.translation==='string'?data.translation.length:0},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H2'})}).catch(()=>{});
+      // #endregion
       const translation = data.translation ?? "";
       setOutputText(translation);
     } catch (err) {
       clearTimeout(timeoutId);
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/933156a5-bfa2-4f2c-b0c6-290a0bb88c70',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Translator.tsx:catch',message:'Catch block',data:{errName:err instanceof Error?err.name:'',errMessage:err instanceof Error?err.message:String(err),ignoreResult:ignoreResultRef.current},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H2,H3,H4'})}).catch(()=>{});
+      // #endregion
       if (ignoreResultRef.current) return;
       if (err instanceof Error && err.name === "AbortError") return;
       const message = err instanceof Error ? err.message : "Translation failed";
@@ -70,6 +85,9 @@ export default function Translator() {
         setError(message);
       }
     } finally {
+      // #region agent log
+      fetch('http://127.0.0.1:7242/ingest/933156a5-bfa2-4f2c-b0c6-290a0bb88c70',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({location:'Translator.tsx:finally',message:'Finally',data:{ignoreResult:ignoreResultRef.current,willSetLoadingFalse:!ignoreResultRef.current},timestamp:Date.now(),sessionId:'debug-session',hypothesisId:'H3'})}).catch(()=>{});
+      // #endregion
       if (!ignoreResultRef.current) setLoading(false);
     }
   }

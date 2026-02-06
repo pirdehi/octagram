@@ -19,6 +19,13 @@ Open [http://localhost:3000](http://localhost:3000) with your browser.
 - Supabase (auth, database)
 - OpenAI for translate/rewrite/reply
 
-## Deploy
+## Deploy on Vercel
 
-You can deploy on [Vercel](https://vercel.com). See [Next.js deployment docs](https://nextjs.org/docs/app/building-your-application/deploying).
+1. Push your code to GitHub (e.g. `github.com/pirdehi/octagram`).
+2. Go to [vercel.com](https://vercel.com) → **Add New…** → **Project** → Import the `octagram` repo.
+3. Add **Environment Variables** (from `.env.example`):
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+   - `SUPABASE_SERVICE_ROLE_KEY`
+   - `OPENAI_API_KEY`
+4. Click **Deploy**. After deploy, set your Vercel URL (e.g. `https://octagram.vercel.app`) in Supabase → **Authentication** → **URL Configuration** → **Site URL** and **Redirect URLs** (`https://your-app.vercel.app/**`, `https://your-app.vercel.app/auth/callback`).
