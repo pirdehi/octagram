@@ -85,9 +85,6 @@ export default async function AppLayout({
 
         <div className="flex min-w-0 flex-1 flex-col">
           <header className="flex items-center justify-between border-b border-border bg-card px-4 py-4 md:px-6">
-            <div className="text-sm text-muted-foreground">
-              Web-only MVP (v1)
-            </div>
             <div className="hidden text-sm text-muted-foreground md:block">
               {displayLabel}
             </div>

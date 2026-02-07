@@ -54,9 +54,6 @@ export default function Home() {
           <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
             <div className="grid items-center gap-10 lg:grid-cols-2">
               <div className="space-y-6">
-                <div className="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-xs text-muted-foreground">
-                  Web-only MVP • Autosaved history • Collections
-                </div>
                 <h1 className="text-balance text-4xl font-semibold tracking-tight md:text-5xl">
                   Write better English in minutes.
                 </h1>
